@@ -24,11 +24,19 @@ export function Positioning() {
   return (
     <section className="mx-auto w-full max-w-[1728px] px-5 pb-24 pt-14 sm:px-8 md:px-12 md:py-40">
       <div className="grid grid-cols-12 items-start gap-x-6">
-        <div className="col-span-12 md:col-span-9">
-          <h2 className="plane-type font-display text-[clamp(1.75rem,5vw,4rem)] font-bold uppercase leading-[1.08] tracking-[-0.02em] [font-stretch:75%]">
+        <div className="col-span-12 md:col-span-10">
+          {/*
+           * 3.3vw is measured, not chosen for looks: the longest statement
+           * needs the font at or below 53px in a 1116px column at 1440, 36px at
+           * 1024 and 26px at 768. Anything larger wraps, and a wrapped
+           * statement uncovers both its rows at once rather than one per row.
+           */}
+          <h2 className="plane-type font-display text-[clamp(1.75rem,3.2vw,4rem)] font-bold uppercase leading-[1.08] tracking-[-0.02em] [font-stretch:75%]">
             {STATEMENT.map((line) => (
-              <span key={line} className="unredact block w-fit">
-                {line}
+              // Outer block stacks the statements; the inner element stays
+              // inline so its cover can clone per wrapped line fragment.
+              <span key={line} className="block">
+                <span className="unredact">{line}</span>
               </span>
             ))}
           </h2>
@@ -43,7 +51,7 @@ export function Positioning() {
 
         <div
           aria-hidden="true"
-          className="plane-furniture hidden md:col-span-3 md:col-start-10 md:mt-2 md:block md:border-l md:border-rule md:pl-4"
+          className="plane-furniture hidden md:col-span-2 md:col-start-11 md:mt-2 md:block md:border-l md:border-rule md:pl-4"
         >
           <dl className="font-doc text-[0.65rem] uppercase leading-relaxed tracking-[0.18em] text-halftone">
             <dd translate="no">Sheet 02 / 05</dd>

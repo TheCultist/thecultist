@@ -175,33 +175,49 @@
      * itself, so a single 62px line un-redacted across 62px of scroll — the
      * whole reveal finished while the line was still in the bottom 14% of the
      * screen, effectively off-view. A cover range spans the element's full
-     * travel across the viewport, so these values reveal each line as it
-     * crosses roughly 85% to 45% of viewport height, where it is being read.
+     * travel across the viewport.
+     *
+     * Every line shares one range deliberately. Each line carries its own view
+     * timeline, so identical values already sequence them: a line reveals when
+     * it personally reaches ~62% of viewport height, and the next reaches that
+     * point one line-height of scroll later.
+     *
+     * The window has to be shorter than that line-height gap or the reveals
+     * overlap and read as a single block uncovering. Lines sit ~70px apart and
+     * the cover range spans ~970px, so 8% (~78px) sequences them; the previous
+     * 32% window (~310px) had all three uncovering at once.
      */
-    .unredact::after {
-      content: "";
-      position: absolute;
-      inset: -0.04em -0.1em;
-      background-color: var(--color-ink);
-      transform-origin: right center;
+    /*
+     * The cover is a background on an inline element with
+     * box-decoration-break: clone, not an absolutely positioned pseudo-element.
+     * A pseudo-element is one box, so a line that wrapped got a single cover
+     * spanning both rows and uncovered them together. Cloned decoration gives
+     * every line fragment its own cover box, so each row is struck and revealed
+     * on its own.
+     *
+     * Anchored right and shrinking to zero width, so text clears left to right
+     * in reading order.
+     */
+    .unredact {
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      background-image: linear-gradient(var(--color-ink), var(--color-ink));
+      background-repeat: no-repeat;
+      background-position: 100% 0;
+      background-size: 100% 100%;
+      /* Negative margin keeps the bleed from affecting layout. */
+      padding: 0.04em 0.1em;
+      margin: -0.04em -0.1em;
       animation: unredact linear both;
       animation-timeline: view();
-      animation-range: cover 14% cover 46%;
-    }
-
-    .unredact:nth-child(2)::after {
-      animation-range: cover 17% cover 49%;
-    }
-
-    .unredact:nth-child(3)::after {
-      animation-range: cover 20% cover 52%;
+      animation-range: cover 33% cover 41%;
     }
   }
 }
 
 @keyframes unredact {
   to {
-    transform: scaleX(0);
+    background-size: 0% 100%;
   }
 }
 
@@ -261,6 +277,50 @@
       animation-timeline: view();
       animation-range: cover 0% cover 30%;
     }
+  }
+}
+
+/*
+ * The persistent follow dock.
+ *
+ * Hidden until the hero has left, then held at the foot of the screen. Driven
+ * by a root scroll timeline rather than a view timeline on the hero, which
+ * avoids `timeline-scope` — that has thinner support than `animation-timeline`
+ * itself, and this is a conversion aid rather than an effect.
+ *
+ * The range is in svh so it tracks the hero's own height (66svh on phones).
+ *
+ * Default state is hidden: without scroll-timeline support the dock simply
+ * never appears. That is the right degradation for an overlay — all three
+ * accounts are already linked in the hero and again in the close, so nothing
+ * is lost, whereas a permanently pinned bar would cover content.
+ */
+.follow-dock {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .follow-dock {
+    animation: dock-in linear both;
+    animation-timeline: scroll(root block);
+    animation-range: 52svh 78svh;
+  }
+
+  /* Snaps rather than slides; it still has to appear. */
+  @media (prefers-reduced-motion: reduce) {
+    .follow-dock {
+      animation-timing-function: steps(1, end);
+    }
+  }
+}
+
+@keyframes dock-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
   }
 }
 
