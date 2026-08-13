@@ -48,14 +48,24 @@ export function SheetHeading({
        * Desktop only. Margin apparatus needs a margin: on a phone this dropped
        * into the content flow, reading as a label under the heading and, in the
        * close, interrupting the path between the pitch and the CTAs.
+       *
+       * Ranged left against a hairline, the way a printed sheet annotates its
+       * own margin. Right-aligned and floating, it read as a stray label rather
+       * than structure.
        */}
       <div
         aria-hidden="true"
-        className="plane-furniture hidden font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex md:flex-col md:items-end md:gap-1"
+        className="plane-furniture hidden md:col-span-3 md:col-start-10 md:mt-2 md:block md:border-l md:border-rule md:pl-4"
       >
         <RegistrationMark />
-        <span translate="no">Sheet {sheet} / 05</span>
-        <span>{label}</span>
+        <dl className="mt-3 font-doc text-[0.65rem] uppercase leading-relaxed tracking-[0.18em] text-halftone">
+          <dt className="sr-only">Sheet</dt>
+          <dd translate="no">Sheet {sheet} / 05</dd>
+          <dt className="sr-only">Section</dt>
+          <dd className="text-ink">{label}</dd>
+          <dt className="sr-only">Classification</dt>
+          <dd className="mt-3 border-t border-rule pt-3">Unrestricted</dd>
+        </dl>
       </div>
     </div>
   );

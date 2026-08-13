@@ -34,10 +34,13 @@ export function Follow() {
 
         <div
           aria-hidden="true"
-          className="plane-furniture hidden font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex md:flex-col md:items-end md:gap-1"
+          className="plane-furniture hidden md:col-span-3 md:col-start-10 md:mt-2 md:block md:border-l md:border-rule md:pl-4"
         >
-          <span translate="no">Sheet 05 / 05</span>
-          <span>Follow</span>
+          <dl className="font-doc text-[0.65rem] uppercase leading-relaxed tracking-[0.18em] text-halftone">
+            <dd translate="no">Sheet 05 / 05</dd>
+            <dd className="text-ink">Follow</dd>
+            <dd className="mt-3 border-t border-rule pt-3">Unrestricted</dd>
+          </dl>
         </div>
       </div>
 

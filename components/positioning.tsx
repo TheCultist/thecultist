@@ -19,9 +19,10 @@ const STATEMENT = [
   "Memes, skits, rules, trivia. Rarely a plan.",
 ] as const;
 
+/* Tighter top padding on phones so this beat breaks the hero's fold. */
 export function Positioning() {
   return (
-    <section className="mx-auto w-full max-w-[1728px] px-5 py-24 sm:px-8 md:px-12 md:py-40">
+    <section className="mx-auto w-full max-w-[1728px] px-5 pb-24 pt-14 sm:px-8 md:px-12 md:py-40">
       <div className="grid grid-cols-12 items-start gap-x-6">
         <div className="col-span-12 md:col-span-9">
           <h2 className="plane-type font-display text-[clamp(1.75rem,5vw,4rem)] font-bold uppercase leading-[1.08] tracking-[-0.02em] [font-stretch:75%]">
@@ -42,10 +43,13 @@ export function Positioning() {
 
         <div
           aria-hidden="true"
-          className="plane-furniture hidden font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex md:flex-col md:items-end md:gap-1"
+          className="plane-furniture hidden md:col-span-3 md:col-start-10 md:mt-2 md:block md:border-l md:border-rule md:pl-4"
         >
-          <span translate="no">Sheet 02 / 05</span>
-          <span>Position</span>
+          <dl className="font-doc text-[0.65rem] uppercase leading-relaxed tracking-[0.18em] text-halftone">
+            <dd translate="no">Sheet 02 / 05</dd>
+            <dd className="text-ink">Position</dd>
+            <dd className="mt-3 border-t border-rule pt-3">Unrestricted</dd>
+          </dl>
         </div>
       </div>
     </section>

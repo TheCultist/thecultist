@@ -48,13 +48,14 @@ function CensorBars() {
 }
 
 /*
- * 92svh on phones, not a full viewport: the next beat has to break the fold so
- * the page visibly continues. A full-height hero with a centred cluster spent a
- * third of the 8-second window on empty stock.
+ * 66svh on phones, not a full viewport. At 92svh the hero still ended below the
+ * fold, so ~370px of a 844px screen was empty stock with nothing signalling the
+ * page continued — 44% of the first screen doing no work inside an 8-second
+ * window. At 66svh the next beat's heading crosses the fold.
  */
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-[92svh] w-full max-w-[1728px] flex-col px-5 py-6 sm:px-8 md:min-h-svh md:px-12 md:py-10">
+    <section className="relative mx-auto flex min-h-[66svh] w-full max-w-[1728px] flex-col px-5 py-6 sm:px-8 md:min-h-svh md:px-12 md:py-10">
       {/*
        * The mark stays in flow. Positioned absolutely it cannot see the centred
        * cluster below it, and the two collide on any short viewport — measurably
