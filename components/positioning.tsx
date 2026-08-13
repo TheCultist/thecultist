@@ -42,7 +42,7 @@ export function Positioning() {
 
         <div
           aria-hidden="true"
-          className="plane-furniture col-span-12 mt-10 flex items-center gap-3 font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex-col md:items-end md:gap-1"
+          className="plane-furniture hidden font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex md:flex-col md:items-end md:gap-1"
         >
           <span translate="no">Sheet 02 / 05</span>
           <span>Position</span>

@@ -21,7 +21,9 @@ export function Follow() {
             <span
               aria-hidden="true"
               className="censor-bar plane-strike absolute"
-              style={{ left: "8.333%", width: "58.333%", top: "0.30em", height: "0.15em" }}
+              // Ends at 50%; the first line's glyphs end at 55.8%. Measured, not
+              // guessed — 58.333% left an 11% stub past "THAT'S THE".
+              style={{ left: "8.333%", width: "41.667%", top: "0.30em", height: "0.15em" }}
             />
           </h2>
 
@@ -32,7 +34,7 @@ export function Follow() {
 
         <div
           aria-hidden="true"
-          className="plane-furniture col-span-12 mt-8 flex items-center gap-3 font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex-col md:items-end md:gap-1"
+          className="plane-furniture hidden font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex md:flex-col md:items-end md:gap-1"
         >
           <span translate="no">Sheet 05 / 05</span>
           <span>Follow</span>

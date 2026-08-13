@@ -44,9 +44,14 @@ export function SheetHeading({
         />
       </h2>
 
+      {/*
+       * Desktop only. Margin apparatus needs a margin: on a phone this dropped
+       * into the content flow, reading as a label under the heading and, in the
+       * close, interrupting the path between the pitch and the CTAs.
+       */}
       <div
         aria-hidden="true"
-        className="plane-furniture col-span-12 mt-6 flex items-center gap-3 font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex-col md:items-end md:gap-1"
+        className="plane-furniture hidden font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex md:flex-col md:items-end md:gap-1"
       >
         <RegistrationMark />
         <span translate="no">Sheet {sheet} / 05</span>
