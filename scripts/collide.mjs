@@ -1,9 +1,16 @@
 /**
- * The hero's mark is positioned out of flow while the content block is
- * vertically centred, so short viewports can drive them into each other.
- * Reports the gap at a spread of heights; negative means overlap.
+ * The hero's ink band is absolutely positioned behind the content, so it is
+ * meant to overlap the wordmark — long drips running past it is the effect.
+ * What must NOT happen is the wordmark colliding with the band's *dense* ink at
+ * the top, where drips are thick and continuous.
+ *
+ * 75% of the drips end by y=300 of the 790px source, so the dense zone is the
+ * top 38% of the band's rendered height. This reports the wordmark's clearance
+ * below that line; negative means the type is sitting in the heavy ink.
  */
 import { chromium } from "playwright";
+
+const DENSE_FRACTION = 300 / 790;
 
 const sizes = [
   [1920, 1080],
@@ -21,20 +28,21 @@ for (const [width, height] of sizes) {
   await page.goto(process.argv[2] ?? "http://localhost:3000", { waitUntil: "networkidle" });
   await page.evaluate(() => document.fonts.ready);
 
-  const gap = await page.evaluate(() => {
-    const mark = document.querySelector("section img");
+  const gap = await page.evaluate((denseFraction) => {
+    const band = document.querySelector("section img");
     const h1 = document.querySelector("h1");
-    const m = mark.getBoundingClientRect();
-    const r = document.createRange();
-    r.selectNodeContents(h1.firstChild);
-    const glyph = r.getBoundingClientRect();
+    const denseBottom = band.getBoundingClientRect().height * denseFraction;
+
+    const range = document.createRange();
+    range.selectNodeContents(h1.firstChild);
+    const glyph = range.getBoundingClientRect();
     const fs = parseFloat(getComputedStyle(h1).fontSize);
     // Cap top sits ~0.048em below the range top for Archivo.
-    return Math.round(glyph.top + 0.048 * fs - m.bottom);
-  });
+    return Math.round(glyph.top + 0.048 * fs - denseBottom);
+  }, DENSE_FRACTION);
 
   console.log(
-    `${String(width).padStart(4)}x${String(height).padEnd(5)} gap=${String(gap).padStart(5)}px ${gap < 24 ? (gap < 0 ? "  <-- OVERLAP" : "  <-- tight") : ""}`,
+    `${String(width).padStart(4)}x${String(height).padEnd(5)} clearance=${String(gap).padStart(5)}px ${gap < 0 ? "  <-- type in dense ink" : gap < 16 ? "  <-- tight" : ""}`,
   );
   await page.close();
 }

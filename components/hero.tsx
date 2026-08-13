@@ -62,12 +62,17 @@ function CensorBars() {
  * The ink band replaces a floating top-left mark: ink bleeding onto the sheet
  * from its top edge, rather than a logo sitting in a corner. Its ground is the
  * page's exact stock, so only the drips read and the band has no visible edge.
- * Padding-top is in vw because the band's height scales with width — the drips
- * are 30.9% of the band's width, and content clears the dense ink above ~12vw.
+ *
+ * Padding-top is in vw because the band's height scales with viewport width.
+ * The band is 30.9% of its width, and its dense ink ends at 38% of that — so
+ * the type must clear 11.7vw. Padding, not margin or centring, is what
+ * guarantees it: `my-auto` centres the cluster higher when vertical slack is
+ * short, which at 1920x898 and 1280x700 put the wordmark inside the heavy ink.
+ * Verified across seven viewports by scripts/collide.mjs.
  */
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-[66svh] w-full max-w-[1728px] flex-col overflow-x-clip px-5 pb-6 pt-[13vw] sm:px-8 md:min-h-svh md:px-12 md:pb-10 md:pt-[9vw]">
+    <section className="relative mx-auto flex min-h-[66svh] w-full max-w-[1728px] flex-col overflow-x-clip px-5 pb-6 pt-[15vw] sm:px-8 md:min-h-svh md:px-12 md:pb-10 md:pt-[14vw]">
       <Image
         src="/ink-band.png"
         alt=""
