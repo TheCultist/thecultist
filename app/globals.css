@@ -1,26 +1,232 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /*
+   * Sampled from the brand mark, not invented. Three hues, two neutrals.
+   * --flame fails contrast as text (2.6:1 on stock) and is fill-only;
+   * ink on flame is 5.9:1 and passes.
+   */
+  --color-ink: #0d0e0c;
+  --color-stock: #f1e4d8;
+  --color-flame: #ef631e;
+  --color-wax: #ecdfcf;
+  --color-halftone: #6e655c;
+  --color-rule: #d8c9b9;
+
+  --font-display: var(--font-archivo), "Arial Narrow", sans-serif;
+  --font-body: var(--font-spectral), Georgia, serif;
+  --font-doc: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Light-only by design; tells the browser to match its own UI to it. */
+    color-scheme: light;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-stock);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    /* Notch and home-indicator clearance. Most traffic is iOS in-app browsers. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  a,
+  button {
+    /* Removes the 300ms double-tap zoom delay on touch. */
+    touch-action: manipulation;
+    /* Set deliberately rather than inheriting the platform's blue flash. */
+    -webkit-tap-highlight-color: color-mix(in srgb, var(--color-flame) 28%, transparent);
+  }
+
+  @media (min-width: 48rem) {
+    body {
+      font-size: 1.125rem;
+    }
+  }
+
+  /* Browser surfaces belong to the design system too. */
+  ::selection {
+    background-color: var(--color-flame);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+  }
+
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+
+  * {
+    scrollbar-color: var(--color-halftone) var(--color-stock);
+    scrollbar-width: thin;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/*
+ * The censor bar.
+ *
+ * A stock-coloured bar under `difference` renders black against the empty page
+ * but knocks the letterforms beneath it to light — a redaction you can read
+ * straight through. No JS, no hidden content, no accessibility cost.
+ */
+.censor-bar {
+  background-color: var(--color-stock);
+  mix-blend-mode: difference;
+}
+
+/*
+ * Bars lift as the hero exits and never return. Scroll-linked, off the main
+ * thread, and inert where `view()` is unsupported — there the bars simply stay
+ * struck and the type stays readable.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .censor-bar {
+      animation: bar-lift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+      will-change: transform;
+    }
+
+    .censor-bar--reverse {
+      animation-name: bar-lift-reverse;
+    }
+  }
+}
+
+/*
+ * Un-redaction.
+ *
+ * A line ships covered by an ink bar that retracts rightward as the line
+ * enters, revealing the text in reading order. This is the page's thesis as
+ * behaviour rather than decoration: content the category keeps behind gates,
+ * uncovering itself as you scroll.
+ *
+ * The covering bar only exists inside these guards. Without scroll-timeline
+ * support, or under reduced motion, no bar is ever drawn and the text is simply
+ * visible — the cover can never become a permanent blindfold.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .unredact {
+      position: relative;
+    }
+
+    .unredact::after {
+      content: "";
+      position: absolute;
+      inset: -0.04em -0.1em;
+      background-color: var(--color-ink);
+      transform-origin: right center;
+      animation: unredact linear both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 45%;
+    }
+
+    .unredact:nth-child(2)::after {
+      animation-range: entry 12% entry 52%;
+    }
+
+    .unredact:nth-child(3)::after {
+      animation-range: entry 19% entry 59%;
+    }
+  }
+}
+
+@keyframes unredact {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/*
+ * Drawn rules.
+ *
+ * Each tool's rule draws itself left to right as the item enters, like a line
+ * being ruled onto a sheet. This replaced a scroll-linked parallax on the two
+ * tool blocks: translating text by fractional pixels costs subpixel
+ * antialiasing, and the drifting copy rendered visibly softer than the copy
+ * beside it. Depth here is carried by the asymmetric layout instead — which is
+ * what the direction's plane raise actually asked for.
+ *
+ * The rule is fully drawn by default; only inside these guards does it start
+ * retracted, so an unsupported browser shows a complete rule rather than none.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rule-draw {
+      animation: rule-draw linear both;
+      animation-timeline: view();
+      animation-range: entry 8% entry 48%;
+    }
+
+    .rule-draw--late {
+      animation-range: entry 16% entry 56%;
+    }
+  }
+}
+
+@keyframes rule-draw {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/*
+ * The closing stamp lands last — struck down onto the sheet after the CTAs have
+ * arrived, rather than fading in with them. Deliberately not the entrance used
+ * anywhere else on the page.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .stamp-land {
+      animation: stamp-land cubic-bezier(0.2, 0, 0, 1) both;
+      animation-timeline: view();
+      animation-range: entry 45% entry 80%;
+    }
+  }
+}
+
+@keyframes stamp-land {
+  from {
+    opacity: 0;
+    transform: rotate(-7deg) scale(1.18);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-2deg) scale(1);
+  }
+}
+
+@keyframes bar-lift {
+  to {
+    transform: translateX(-115%);
+  }
+}
+
+@keyframes bar-lift-reverse {
+  to {
+    transform: translateX(115%);
+  }
 }
