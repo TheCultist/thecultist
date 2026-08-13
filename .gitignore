@@ -47,3 +47,4 @@ next-env.d.ts
 # design.json is the durable design sidecar and is deliberately kept.
 .impeccable/review/
 .impeccable/mocks/
+.impeccable/questions/
