@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell($paths = @\\(\"$env:ProgramFiles\\\\nodejs\\\\node.exe\", \"${env:ProgramFiles\\(x86\\)}\\\\nodejs\\\\node.exe\", \"$env:LOCALAPPDATA\\\\nvs\", \"$env:APPDATA\\\\nvm\", \"$env:LOCALAPPDATA\\\\fnm\", \"$env:USERPROFILE\\\\scoop\\\\shims\\\\node.exe\", \"$env:LOCALAPPDATA\\\\Volta\\\\bin\"\\); foreach \\($p in $paths\\) { if \\(Test-Path $p\\) { \"FOUND: $p\" } else { \"missing: $p\" } })",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.claude\" -Force -ErrorAction SilentlyContinue | Select-Object Name; \"--- plugins ---\"; Get-ChildItem \"$env:USERPROFILE\\\\.claude\\\\plugins\" -Force -Recurse -Depth 1 -ErrorAction SilentlyContinue | Select-Object FullName)",
+      "Bash(npx *)",
+      "PowerShell(npx --yes skills add vercel-labs/agent-skills --skill web-design-guidelines)",
+      "PowerShell($c = @\\('node','npm','npx','pnpm','bun','fnm','nvm','volta'\\); foreach \\($n in $c\\) { $g = Get-Command $n -ErrorAction SilentlyContinue; if \\($g\\) { \"$n -> $\\($g.Source\\)\" } else { \"$n -> NOT FOUND\" } })",
+      "PowerShell($paths = @\\(\"$env:ProgramFiles\\\\nodejs\\\\node.exe\",\"${env:ProgramFiles\\(x86\\)}\\\\nodejs\\\\node.exe\",\"$env:LOCALAPPDATA\\\\Programs\\\\nodejs\\\\node.exe\",\"$env:APPDATA\\\\npm\\\\npx.cmd\",\"$env:LOCALAPPDATA\\\\fnm_multishells\",\"$env:LOCALAPPDATA\\\\Volta\\\\bin\\\\node.exe\",\"$env:USERPROFILE\\\\scoop\\\\shims\\\\node.exe\",\"$env:ProgramData\\\\chocolatey\\\\bin\\\\node.exe\"\\); foreach \\($p in $paths\\) { if \\(Test-Path $p\\) { \"FOUND: $p\" } else { \"missing: $p\" } })",
+      "PowerShell(foreach \\($n in @\\('git','winget','curl','tar'\\)\\) { $g = Get-Command $n -ErrorAction SilentlyContinue; if \\($g\\) { \"$n -> $\\($g.Source\\)\" } else { \"$n -> NOT FOUND\" } })",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell($p = \"$env:USERPROFILE\\\\.claude\\\\skills\"; if \\(Test-Path $p\\) { \"GLOBAL skills dir exists:\"; Get-ChildItem $p | Select-Object -ExpandProperty Name } else { \"no global skills dir: $p\" }; $q = \"C:\\\\P-Projects\\\\thecultist\\\\.claude\"; if \\(Test-Path $q\\) { \"project .claude:\"; Get-ChildItem -Recurse $q | Select-Object -ExpandProperty FullName } else { \"no project .claude dir\" })",
+      "PowerShell(winget install *)",
+      "PowerShell($env:Path = [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"Machine\"\\) + \";\" + [System.Environment]::GetEnvironmentVariable\\(\"Path\",\"User\"\\); \"node: $\\(node -v\\)\"; \"npm:  $\\(npm -v\\)\"; \"npx:  $\\(\\(Get-Command npx\\).Source\\)\")"
+    ]
+  }
+}
