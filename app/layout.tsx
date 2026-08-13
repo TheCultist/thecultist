@@ -3,6 +3,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { Archivo, Spectral, JetBrains_Mono } from "next/font/google";
 
+import { MotionFallback } from "@/components/motion-fallback";
 import { OutboundTracking } from "@/components/outbound-tracking";
 import { archive, contact, socials } from "@/lib/links";
 
@@ -135,6 +136,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
         {children}
+        <MotionFallback />
         <OutboundTracking />
         <Analytics />
         <SpeedInsights />
