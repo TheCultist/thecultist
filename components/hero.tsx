@@ -80,7 +80,7 @@ export function Hero() {
         height={790}
         sizes="100vw"
         priority
-        className="pointer-events-none absolute inset-x-0 top-0 z-0 w-full select-none"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 w-full select-none"
       />
 
       {/*
@@ -91,7 +91,12 @@ export function Hero() {
        *
        * Top-biased on phones (mb-auto), centred from md up.
        */}
-      <div className="relative z-10 mb-auto pt-[2vw] md:my-auto">
+      {/*
+       * No z-index or isolation on this wrapper. Either would create a stacking
+       * context that cuts the censor bars off from the ink band, and the bars
+       * blend with whatever is behind them.
+       */}
+      <div className="mb-auto pt-[2vw] md:my-auto">
         {/* bg-stock gives the difference blend a defined backdrop inside the isolated group. */}
         {/*
          * The 18rem ceiling is derived, not guessed: at the 1728px container the
@@ -99,7 +104,15 @@ export function Hero() {
          * character, so nine characters at 288px fill ~91% — the same fill the
          * type holds at every narrower width.
          */}
-        <h1 className="relative isolate bg-stock font-display text-[clamp(3.5rem,16.5vw,18rem)] font-black uppercase leading-[0.85] tracking-[-0.035em] [font-stretch:75%]">
+        {/*
+         * No `isolate`, and no background. Both were here to give the
+         * difference blend a defined backdrop, but an opaque cream background
+         * spanning the full measure painted over the ink band's drips. Without
+         * isolation the bars blend against the real page backdrop — page
+         * ground, drips and glyphs alike — so a drip crossing a bar inverts
+         * exactly as a letterform does.
+         */}
+        <h1 className="relative font-display text-[clamp(3.5rem,16.5vw,18rem)] font-black uppercase leading-[0.85] tracking-[-0.035em] [font-stretch:75%]">
           Cardboard
           <br />
           Cultist
