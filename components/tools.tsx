@@ -1,4 +1,5 @@
 import { ArrowOut } from "@/components/arrow-out";
+import { SheetHeading } from "@/components/sheet-heading";
 import { tools } from "@/lib/links";
 
 /**
@@ -46,7 +47,7 @@ function Tool({
       >
         <span
           aria-hidden="true"
-          className={`rule-draw block h-[3px] w-full origin-left bg-ink ${ruleClass}`}
+          className={`rule-draw block h-[3px] w-full origin-left ${ruleClass}`}
         />
         <h3
           className={`mt-5 font-display font-bold uppercase leading-[1.05] tracking-[-0.02em] [font-stretch:75%] md:mt-7 ${headingClass}`}
@@ -54,7 +55,13 @@ function Tool({
           {heading}
         </h3>
         <p className="mt-4 max-w-[52ch] font-body text-halftone">{body}</p>
-        <span className="mt-5 inline-flex min-h-11 items-center gap-2 font-doc text-[0.7rem] uppercase tracking-[0.16em] transition-colors duration-200 group-hover:text-flame group-focus-visible:text-flame">
+        {/*
+         * A bordered target, not a mono caption. The previous treatment carried
+         * its only affordance in a hover state, which never fires on the phones
+         * this page is built for — a secondary conversion goal shipping with no
+         * default indication it was clickable.
+         */}
+        <span className="mt-6 inline-flex min-h-11 items-center gap-2 border-[3px] border-ink px-4 py-2 font-doc text-[0.7rem] uppercase tracking-[0.16em] transition-colors duration-200 group-hover:bg-flame group-focus-visible:bg-flame">
           <span translate="no">{domain}</span>
           <ArrowOut className="h-3.5 w-3.5" />
         </span>
@@ -66,13 +73,18 @@ function Tool({
 export function Tools() {
   return (
     <section className="mx-auto w-full max-w-[1728px] px-5 pb-24 sm:px-8 md:px-12 md:pb-40">
-      <h2 className="max-w-[20ch] font-display text-[clamp(1.5rem,3.5vw,2.75rem)] font-bold uppercase leading-[1.1] tracking-[-0.02em] [font-stretch:75%]">
+      <SheetHeading
+        sheet="03"
+        label="Tools"
+        strike={{ left: "16.667%", width: "50%", top: "0.30em" }}
+      >
         Two things I built instead of sleeping.
-      </h2>
+      </SheetHeading>
 
       <div className="mt-14 grid grid-cols-12 gap-y-16 md:mt-20 md:gap-y-28">
         <Tool
           className="col-span-12 md:col-span-9"
+          ruleClass="bg-flame"
           href={tools.findThatCard.href}
           domain={tools.findThatCard.label}
           heading="Find cards by describing them."
@@ -82,7 +94,7 @@ export function Tools() {
 
         <Tool
           className="col-span-12 md:col-span-6 md:col-start-7"
-          ruleClass="rule-draw--late"
+          ruleClass="rule-draw--late bg-ink"
           href={tools.stormCount.href}
           domain={tools.stormCount.label}
           heading="How high is your storm count?"

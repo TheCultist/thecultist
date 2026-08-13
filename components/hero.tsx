@@ -22,7 +22,9 @@ import { socials } from "@/lib/links";
  */
 const BARS = [
   { left: "0%", width: "41.667%", top: "0.24em", reverse: false },
-  { left: "50%", width: "50%", top: "0.57em", reverse: true },
+  // Ends on the glyph run. Running to 100% left a stub of bare bar past the
+  // word with no letterform to invert — a stray rectangle, not a strike.
+  { left: "50%", width: "41.667%", top: "0.57em", reverse: true },
   { left: "8.333%", width: "41.667%", top: "1.20em", reverse: false },
 ] as const;
 
@@ -45,9 +47,14 @@ function CensorBars() {
   );
 }
 
+/*
+ * 92svh on phones, not a full viewport: the next beat has to break the fold so
+ * the page visibly continues. A full-height hero with a centred cluster spent a
+ * third of the 8-second window on empty stock.
+ */
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-svh w-full max-w-[1728px] flex-col px-5 py-6 sm:px-8 md:px-12 md:py-10">
+    <section className="relative mx-auto flex min-h-[92svh] w-full max-w-[1728px] flex-col px-5 py-6 sm:px-8 md:min-h-svh md:px-12 md:py-10">
       {/*
        * The mark stays in flow. Positioned absolutely it cannot see the centred
        * cluster below it, and the two collide on any short viewport — measurably
@@ -70,8 +77,11 @@ export function Hero() {
        * lets them encroach on the mark. Font size is 16.5vw, so 0.122em ≈ 2vw —
        * expressed in vw rather than em so it cannot collapse or shift the bars,
        * which are positioned against the h1's own box.
+       *
+       * Top-biased on phones (mb-auto), centred from md up. Centring on a short
+       * viewport pushed the wordmark below the middle of the screen.
        */}
-      <div className="my-auto pt-[2vw]">
+      <div className="mb-auto mt-6 pt-[2vw] md:my-auto md:mt-0">
         {/* bg-stock gives the difference blend a defined backdrop inside the isolated group. */}
         {/*
          * The 18rem ceiling is derived, not guessed: at the 1728px container the

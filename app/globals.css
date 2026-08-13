@@ -88,6 +88,40 @@
 }
 
 /*
+ * Named depth planes.
+ *
+ * The direction's carried raise asks for a designed plane system with named
+ * layers, not a scroll offset. Three planes, applied consistently: the sheet
+ * and its margin furniture sit behind, the type sits in front of them, and the
+ * redaction strikes sit above everything because a censor is applied last.
+ */
+@theme {
+  --plane-sheet: 0;
+  --plane-furniture: 1;
+  --plane-type: 2;
+  --plane-strike: 3;
+}
+
+.plane-sheet {
+  position: relative;
+  z-index: var(--plane-sheet);
+}
+
+.plane-furniture {
+  position: relative;
+  z-index: var(--plane-furniture);
+}
+
+.plane-type {
+  position: relative;
+  z-index: var(--plane-type);
+}
+
+.plane-strike {
+  z-index: var(--plane-strike);
+}
+
+/*
  * The censor bar.
  *
  * A stock-coloured bar under `difference` renders black against the empty page
@@ -201,27 +235,32 @@
 }
 
 /*
- * The closing stamp lands last — struck down onto the sheet after the CTAs have
- * arrived, rather than fading in with them. Deliberately not the entrance used
- * anywhere else on the page.
+ * The closing stamp lands last — struck down onto the sheet rather than fading
+ * in with the CTAs. Deliberately not the entrance used anywhere else.
+ *
+ * Transform only, never opacity, and on a `cover` range that completes early.
+ * This element sits at the foot of the document with only a footer beneath it,
+ * so an `entry` range can never finish — there is not enough scroll left. With
+ * fill: both that pinned the stamp at its from-state, and an opacity of 0 there
+ * made the last element on the page permanently invisible. Animating transform
+ * alone means an incomplete range degrades to a slightly different angle rather
+ * than to nothing at all.
  */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
     .stamp-land {
       animation: stamp-land cubic-bezier(0.2, 0, 0, 1) both;
       animation-timeline: view();
-      animation-range: entry 45% entry 80%;
+      animation-range: cover 0% cover 30%;
     }
   }
 }
 
 @keyframes stamp-land {
   from {
-    opacity: 0;
-    transform: rotate(-7deg) scale(1.18);
+    transform: rotate(-6deg) scale(1.08);
   }
   to {
-    opacity: 1;
     transform: rotate(-2deg) scale(1);
   }
 }

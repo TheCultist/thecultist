@@ -22,20 +22,32 @@ const STATEMENT = [
 export function Positioning() {
   return (
     <section className="mx-auto w-full max-w-[1728px] px-5 py-24 sm:px-8 md:px-12 md:py-40">
-      <h2 className="font-display text-[clamp(1.75rem,5vw,4rem)] font-bold uppercase leading-[1.08] tracking-[-0.02em] [font-stretch:75%]">
-        {STATEMENT.map((line) => (
-          <span key={line} className="unredact block w-fit">
-            {line}
-          </span>
-        ))}
-      </h2>
+      <div className="grid grid-cols-12 items-start gap-x-6">
+        <div className="col-span-12 md:col-span-9">
+          <h2 className="plane-type font-display text-[clamp(1.75rem,5vw,4rem)] font-bold uppercase leading-[1.08] tracking-[-0.02em] [font-stretch:75%]">
+            {STATEMENT.map((line) => (
+              <span key={line} className="unredact block w-fit">
+                {line}
+              </span>
+            ))}
+          </h2>
 
-      <p className="mt-10 max-w-[58ch] font-body text-halftone md:mt-14">
-        None of this is a full-time operation. It is a senior developer with a
-        bedtime routine and a stubborn opinion that Magic should be easier to get
-        into than people make it. No tier lists. No &ldquo;well, actually&rdquo;.
-        Occasionally a candle.
-      </p>
+          <p className="mt-10 max-w-[58ch] font-body text-halftone md:mt-14">
+            None of this is a full-time operation. It is a senior developer with
+            a bedtime routine and a stubborn opinion that Magic should be easier
+            to get into than people make it. No tier lists. No &ldquo;well,
+            actually&rdquo;. Occasionally a candle.
+          </p>
+        </div>
+
+        <div
+          aria-hidden="true"
+          className="plane-furniture col-span-12 mt-10 flex items-center gap-3 font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone md:col-span-3 md:col-start-10 md:mt-2 md:flex-col md:items-end md:gap-1"
+        >
+          <span translate="no">Sheet 02 / 05</span>
+          <span>Position</span>
+        </div>
+      </div>
     </section>
   );
 }

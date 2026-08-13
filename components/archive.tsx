@@ -1,4 +1,5 @@
 import { ArrowOut } from "@/components/arrow-out";
+import { SheetHeading } from "@/components/sheet-heading";
 import { archive } from "@/lib/links";
 
 /**
@@ -49,12 +50,21 @@ function Entry({ href, domain, heading, body, note, dormant = false }: EntryProp
         <p className="mt-3 max-w-[54ch] font-body text-sm text-halftone md:text-base">
           {body}
         </p>
-        <span className="mt-4 inline-flex min-h-11 flex-wrap items-center gap-x-3 gap-y-1 font-doc text-[0.7rem] uppercase tracking-[0.16em] transition-colors duration-200 group-hover:text-flame group-focus-visible:text-flame">
-          <span className="inline-flex items-center gap-2" translate="no">
+        <span className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span
+            className={`inline-flex min-h-11 items-center gap-2 border-[3px] px-4 py-2 font-doc text-[0.7rem] uppercase tracking-[0.16em] transition-colors duration-200 group-hover:bg-flame group-focus-visible:bg-flame ${
+              dormant ? "border-halftone" : "border-ink"
+            }`}
+            translate="no"
+          >
             {domain}
             <ArrowOut className="h-3.5 w-3.5" />
           </span>
-          {note ? <span className="text-halftone">{note}</span> : null}
+          {note ? (
+            <span className="font-doc text-[0.65rem] uppercase tracking-[0.18em] text-halftone">
+              {note}
+            </span>
+          ) : null}
         </span>
       </a>
     </article>
@@ -64,9 +74,13 @@ function Entry({ href, domain, heading, body, note, dormant = false }: EntryProp
 export function Archive() {
   return (
     <section className="mx-auto w-full max-w-[1728px] px-5 pb-24 sm:px-8 md:px-12 md:pb-40">
-      <h2 className="max-w-[20ch] font-display text-[clamp(1.5rem,3.5vw,2.75rem)] font-bold uppercase leading-[1.1] tracking-[-0.02em] [font-stretch:75%]">
+      <SheetHeading
+        sheet="04"
+        label="Archive"
+        strike={{ left: "0%", width: "41.667%", top: "0.62em" }}
+      >
         Elsewhere, and before.
-      </h2>
+      </SheetHeading>
 
       <div className="mt-12 grid max-w-[52rem] grid-cols-1 gap-y-12 md:mt-16 md:gap-y-16">
         <Entry
