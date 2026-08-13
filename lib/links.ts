@@ -30,6 +30,16 @@ export const socials: readonly Social[] = [
   },
 ] as const;
 
+/**
+ * Published as a plain mailto, deliberately. Obfuscating it would cost the
+ * no-JS guarantee and break "copy link address", and a domain-based address is
+ * trivially filtered at the mailbox anyway.
+ */
+export const contact = {
+  email: "luigi.savinelli@thecultist.it",
+  href: "mailto:luigi.savinelli@thecultist.it",
+} as const;
+
 export const tools = {
   findThatCard: {
     label: "findthatcard.net",
