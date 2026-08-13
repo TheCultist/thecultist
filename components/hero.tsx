@@ -34,7 +34,7 @@ function CensorBars() {
       {BARS.map((bar, i) => (
         <span
           key={i}
-          className={`censor-bar absolute ${bar.reverse ? "censor-bar--reverse" : ""}`}
+          className={`censor-bar censor-bar--lift absolute ${bar.reverse ? "censor-bar--reverse" : ""}`}
           style={{
             left: bar.left,
             width: bar.width,
@@ -79,7 +79,18 @@ export function Hero() {
         width={2560}
         height={790}
         sizes="100vw"
-        priority
+        /*
+         * Eager, but deliberately not `priority`. Preloading this competed with
+         * the display font's preload, and the wordmark is what should win that
+         * race — it carries the message. Eager still starts the fetch during
+         * parse, and at ~4KB it lands well inside the first paint.
+         *
+         * quality 45 because this is flat cream and hard black shapes with no
+         * gradients or photographic detail: it survives aggressive compression
+         * with no visible difference, and it dropped from 47KB to 4.4KB.
+         */
+        loading="eager"
+        quality={45}
         className="pointer-events-none absolute inset-x-0 top-0 -z-10 w-full select-none"
       />
 

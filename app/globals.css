@@ -133,20 +133,28 @@
 }
 
 /*
- * Bars lift as the hero exits and never return. Scroll-linked, off the main
- * thread, and inert where `view()` is unsupported — there the bars simply stay
- * struck and the type stays readable.
+ * Hero bars slide off as the page starts moving, and never return. Inert where
+ * scroll timelines are unsupported — there the bars stay struck and the type
+ * stays readable.
+ *
+ * A root scroll timeline over an absolute range, not `exit` on the h1. An exit
+ * range does not begin until the element's top edge has already crossed the top
+ * of the viewport, so the lift only started once the wordmark was leaving and
+ * was almost never seen. Anchoring to the document's own scroll means the bars
+ * move from the first pixel of scroll, while the wordmark is still full-screen.
+ *
+ * Scoped to the hero: the section-heading strikes further down are static
+ * marks, not a lifting redaction.
  */
-@supports (animation-timeline: view()) {
+@supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
-    .censor-bar {
+    .censor-bar--lift {
       animation: bar-lift linear both;
-      animation-timeline: view();
-      animation-range: exit 0% exit 100%;
-      will-change: transform;
+      animation-timeline: scroll(root block);
+      animation-range: 0 40svh;
     }
 
-    .censor-bar--reverse {
+    .censor-bar--lift.censor-bar--reverse {
       animation-name: bar-lift-reverse;
     }
   }
