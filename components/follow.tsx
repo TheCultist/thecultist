@@ -1,4 +1,5 @@
 import { ArrowOut } from "@/components/arrow-out";
+import { ContactStrip } from "@/components/contact-strip";
 import { socials } from "@/lib/links";
 
 /**
@@ -44,7 +45,18 @@ export function Follow() {
         </div>
       </div>
 
-      <ul className="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-3 md:mt-14 md:gap-4">
+      {/*
+       * The stamp now leads into the contact strip rather than closing the
+       * page, and the CTAs still land last — proof immediately before the
+       * conversion, not after it.
+       */}
+      <p className="stamp-land mt-12 inline-block -rotate-2 border-[3px] border-ink px-4 py-2 font-doc text-xs uppercase leading-none tracking-[0.16em] md:mt-16 md:text-sm">
+        Now go watch something
+      </p>
+
+      <ContactStrip />
+
+      <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-3 md:mt-16 md:gap-4">
         {socials.map((social) => (
           <li key={social.label}>
             <a
@@ -75,14 +87,6 @@ export function Follow() {
         ))}
       </ul>
 
-      {/*
-       * A different act from the hero stamp, not a repeat of it. The opening
-       * stamp asserts the motto on flame; this one is the redaction lifted —
-       * outlined, unfilled, struck through — and says something else.
-       */}
-      <p className="stamp-land mt-12 inline-block -rotate-2 border-[3px] border-ink px-4 py-2 font-doc text-xs uppercase leading-none tracking-[0.16em] md:mt-16 md:text-sm">
-        Now go watch something
-      </p>
     </section>
   );
 }

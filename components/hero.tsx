@@ -53,36 +53,40 @@ function CensorBars() {
  * page continued — 44% of the first screen doing no work inside an 8-second
  * window. At 66svh the next beat's heading crosses the fold.
  */
+/*
+ * overflow-x: clip, not hidden — clip does not create a scroll container. The
+ * reverse censor bar translates +115% as the hero exits, which put its right
+ * edge 484px past a 1440 viewport and produced a horizontal scrollbar. Bars now
+ * slide off the sheet edge instead.
+ *
+ * The ink band replaces a floating top-left mark: ink bleeding onto the sheet
+ * from its top edge, rather than a logo sitting in a corner. Its ground is the
+ * page's exact stock, so only the drips read and the band has no visible edge.
+ * Padding-top is in vw because the band's height scales with width — the drips
+ * are 30.9% of the band's width, and content clears the dense ink above ~12vw.
+ */
 export function Hero() {
   return (
-    <section className="relative mx-auto flex min-h-[66svh] w-full max-w-[1728px] flex-col px-5 py-6 sm:px-8 md:min-h-svh md:px-12 md:py-10">
-      {/*
-       * The mark stays in flow. Positioned absolutely it cannot see the centred
-       * cluster below it, and the two collide on any short viewport — measurably
-       * so at 1920x898 and below. `my-auto` on the cluster centres it in the
-       * space the mark leaves, which cannot overlap by construction.
-       */}
+    <section className="relative mx-auto flex min-h-[66svh] w-full max-w-[1728px] flex-col overflow-x-clip px-5 pb-6 pt-[13vw] sm:px-8 md:min-h-svh md:px-12 md:pb-10 md:pt-[9vw]">
       <Image
-        src="/mark.png"
+        src="/ink-band.png"
         alt=""
-        width={1024}
-        height={1024}
-        sizes="(min-width: 768px) 96px, 64px"
+        width={2560}
+        height={790}
+        sizes="100vw"
         priority
-        className="h-16 w-16 flex-none md:h-24 md:w-24"
+        className="pointer-events-none absolute inset-x-0 top-0 z-0 w-full select-none"
       />
 
       {/*
        * pt compensates the ascender overhang: at line-height 0.85 the glyphs
-       * paint ~0.122em above the h1's layout box, so correct flow layout still
-       * lets them encroach on the mark. Font size is 16.5vw, so 0.122em ≈ 2vw —
-       * expressed in vw rather than em so it cannot collapse or shift the bars,
-       * which are positioned against the h1's own box.
+       * paint ~0.122em above the h1's layout box. Font size is 16.5vw, so
+       * 0.122em ≈ 2vw — in vw rather than em so it cannot collapse or shift the
+       * bars, which are positioned against the h1's own box.
        *
-       * Top-biased on phones (mb-auto), centred from md up. Centring on a short
-       * viewport pushed the wordmark below the middle of the screen.
+       * Top-biased on phones (mb-auto), centred from md up.
        */}
-      <div className="mb-auto mt-6 pt-[2vw] md:my-auto md:mt-0">
+      <div className="relative z-10 mb-auto pt-[2vw] md:my-auto">
         {/* bg-stock gives the difference blend a defined backdrop inside the isolated group. */}
         {/*
          * The 18rem ceiling is derived, not guessed: at the 1728px container the
