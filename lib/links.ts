@@ -74,13 +74,45 @@ export type Reel = {
   readonly placeholder?: boolean;
 };
 
+/**
+ * Cover frames are stored locally, not hotlinked. Instagram's CDN URLs carry
+ * expiring signatures, so linking them directly would leave the strip broken
+ * some weeks later with nothing in the repo to explain why.
+ *
+ * To refresh: fetch the reel URL with a link-preview user agent, read its
+ * og:image, download it and save it here at 9:16.
+ */
 export const reels: readonly Reel[] = [
-  { href: "https://www.instagram.com/cardboard.cultist/", thumb: "/reels/placeholder-1.png", alt: "Placeholder frame 1", placeholder: true },
-  { href: "https://www.instagram.com/cardboard.cultist/", thumb: "/reels/placeholder-2.png", alt: "Placeholder frame 2", placeholder: true },
-  { href: "https://www.instagram.com/cardboard.cultist/", thumb: "/reels/placeholder-3.png", alt: "Placeholder frame 3", placeholder: true },
-  { href: "https://www.instagram.com/cardboard.cultist/", thumb: "/reels/placeholder-4.png", alt: "Placeholder frame 4", placeholder: true },
-  { href: "https://www.instagram.com/cardboard.cultist/", thumb: "/reels/placeholder-5.png", alt: "Placeholder frame 5", placeholder: true },
-  { href: "https://www.instagram.com/cardboard.cultist/", thumb: "/reels/placeholder-6.png", alt: "Placeholder frame 6", placeholder: true },
+  {
+    href: "https://www.instagram.com/reel/DLxbX4_C2NL/",
+    thumb: "/reels/reel-1.jpg",
+    alt: "Luigi to camera in an “algorithm” T-shirt, captioned: when you find the perfect upgrade for your deck but…",
+  },
+  {
+    href: "https://www.instagram.com/reel/DJ9OJUSiS5o/",
+    thumb: "/reels/reel-2.jpg",
+    alt: "The Magic card Mystic Remora, captioned: why not a creature?",
+  },
+  {
+    href: "https://www.instagram.com/reel/DbVRSafTc0E/",
+    thumb: "/reels/reel-3.jpg",
+    alt: "A Zimone, Mystery Unraveler card held to camera, captioned: spicy tech for Zimone",
+  },
+  {
+    href: "https://www.instagram.com/reel/Da7ezwFzyLd/",
+    thumb: "/reels/reel-4.jpg",
+    alt: "Luigi wide-eyed in black and white, captioned: five stages of grief, Commander edition",
+  },
+  {
+    href: "https://www.instagram.com/reel/DZ-RRkKTCAN/",
+    thumb: "/reels/reel-5.jpg",
+    alt: "Luigi to camera, captioned: essential items to bring to any MTG event",
+  },
+  {
+    href: "https://www.instagram.com/reel/DWRZx9BE4XV/",
+    thumb: "/reels/reel-6.jpg",
+    alt: "The Centurion Commander logo, captioned: competitive 1v1, made in Italy, regular Commander",
+  },
 ] as const;
 
 export const archive = {

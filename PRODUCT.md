@@ -82,9 +82,18 @@ The voice is deadpan and absurdist. The philosophy is explicitly anti-gatekeepin
 - Published writing at **Screenhype**: `https://www.screenhype.co.uk/author/luigi-savinelli/`. **Published under the owner's real name, Luigi Savinelli — not under the Cardboard Cultist brand.** A visitor clicking through lands on a page bylined with a different name than the one they arrived for, so the archive copy must bridge that gap rather than let it read as a broken link.
 - An archived Italian videogame channel, *TheCultist – Inform the Gamers*: `https://www.youtube.com/@TheCultist`. No longer updated. Note this is a **separate channel** from the active MTG channel at `@card_cultist`.
 
-**Explicitly absent — must not be invented or designed around:**
-- No photography of the creator. No on-camera stills, portraits, or video thumbnails.
-- No card, playmat, or product photography.
+**Photography — this changed late and the old note was wrong.** Six Instagram
+reel cover frames are now stored at `public/reels/`, pulled from each post's
+`og:image` and saved locally because Instagram's CDN URLs expire. Three show
+the owner on camera; one shows a Magic card held to camera. So the page is no
+longer purely typographic — it has real photographic material, and the earlier
+statement that none existed no longer holds.
+
+To refresh a cover: request the reel URL with a link-preview user agent, read
+its `og:image`, download and save at 9:16.
+
+**Still explicitly absent — must not be invented:**
+- No studio or product photography beyond those cover frames.
 - No follower counts, view counts, testimonials, press mentions, or awards have been confirmed. None may be fabricated or used as placeholder.
 - No URL in this document has been machine-verified except `findthatcard.net`, `stormcount.gg`, and the Instagram profile. TikTok, both YouTube channels, and Screenhype are all behind login walls, GDPR consent interstitials, or bot protection. **Every link needs one manual click-through before launch.**
 
