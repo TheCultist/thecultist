@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Archivo, Spectral, JetBrains_Mono } from "next/font/google";
 
 import { OutboundTracking } from "@/components/outbound-tracking";
+import { archive, contact, socials } from "@/lib/links";
 
 import "./globals.css";
 
@@ -57,6 +58,8 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   applicationName: "Cardboard Cultist",
   authors: [{ name: "Luigi Savinelli" }],
+  // Apex and www both resolve; this tells search engines which one counts.
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
@@ -94,6 +97,31 @@ FORM: The Embargo Sheet, candidate 6 of 7, seed e2f79a43.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`;
 
+/**
+ * Structured data, stating only facts that are already on the page.
+ *
+ * `sameAs` is the part that earns its place: it tells search engines that this
+ * domain and these social profiles are one identity, which is the whole job of
+ * a creator hub. No ratings, no counts, no invented claims.
+ */
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  mainEntity: {
+    "@type": "Person",
+    name: "Luigi Savinelli",
+    alternateName: "Cardboard Cultist",
+    url: "https://thecultist.it",
+    email: contact.href,
+    description: DESCRIPTION,
+    sameAs: [
+      ...socials.map((s) => s.href),
+      archive.screenhype.href,
+      archive.informTheGamers.href,
+    ],
+  },
+} as const;
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
@@ -102,6 +130,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full antialiased">
         <div hidden dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
+        />
         {children}
         <OutboundTracking />
         <Analytics />

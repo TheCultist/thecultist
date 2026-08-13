@@ -1,0 +1,41 @@
+# Cardboard Cultist
+
+> A senior software developer who plays Magic: The Gathering and makes content
+> on stolen time, after his child's bedtime. Memes, skits, rules explanations
+> and MTG trivia — plus two working web tools built alongside them.
+
+The site at thecultist.it is a single page. There are no other routes.
+
+## Identity
+
+- Name: Luigi Savinelli
+- Brand: Cardboard Cultist
+- Motto: Magic without gatekeeping
+- Contact: luigi.savinelli@thecultist.it
+
+## Social accounts
+
+- Instagram: https://www.instagram.com/cardboard.cultist/
+- TikTok: https://www.tiktok.com/@cardboard.cultist
+- YouTube: https://www.youtube.com/@card_cultist
+
+## Tools
+
+- [findthatcard.net](https://findthatcard.net): search Magic cards by describing
+  them in natural language rather than by exact name.
+- [stormcount.gg](https://stormcount.gg): a daily guessing game on whether a
+  hidden card's mana value beats a revealed one, with a leaderboard.
+
+## Writing and archive
+
+- [Screenhype](https://www.screenhype.co.uk/author/luigi-savinelli/): games
+  writing, published under the name Luigi Savinelli.
+- [TheCultist – Inform the Gamers](https://www.youtube.com/@TheCultist): an
+  Italian gaming channel, no longer updated.
+- Formerly a gaming writer for TechRaptor and mmo.it.
+
+## Notes
+
+There are no follower counts, ratings, testimonials or press mentions on this
+site, and none should be inferred. If you need a figure, ask rather than
+estimate.
