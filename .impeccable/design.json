@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-13T00:00:00.000Z",
+  "title": "Design System: Cardboard Cultist",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "primary",
+        "displayName": "Toner Black",
+        "canonical": "#0d0e0c",
+        "tonalRamp": ["#0d0e0c", "#1c1e1a", "#2f322c", "#464a42", "#61665b", "#838878", "#a8ac9d", "#d6d9cd"]
+      },
+      "flame": {
+        "role": "secondary",
+        "displayName": "Flame Orange",
+        "canonical": "#ef631e",
+        "tonalRamp": ["#2c1004", "#4a1c07", "#6d290b", "#93390f", "#bb4a14", "#ef631e", "#f79361", "#fdc6a5"]
+      },
+      "stock": {
+        "role": "neutral",
+        "displayName": "Brand Cream Stock",
+        "canonical": "#f1e4d8",
+        "tonalRamp": ["#2b231c", "#453931", "#5f5147", "#7b6c60", "#9a8b7d", "#bcae9f", "#d8cabb", "#f1e4d8"]
+      },
+      "halftone": {
+        "role": "neutral",
+        "displayName": "Halftone Grey",
+        "canonical": "#6e655c",
+        "tonalRamp": ["#171411", "#2a2622", "#3f3a34", "#565049", "#6e655c", "#8d8479", "#b0a89d", "#d5cec5"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule Cream",
+        "canonical": "#d8c9b9",
+        "tonalRamp": ["#241d16", "#3b3128", "#54473b", "#6f6051", "#8c7c6b", "#ab9c8b", "#c5b5a4", "#d8c9b9"]
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The wordmark only, once per page. Ceiling derived so nine characters fill ~91% of the 1632px measure." },
+      "headline": { "displayName": "Headline", "purpose": "The closing statement — the only other place weight 900 appears." },
+      "title": { "displayName": "Title", "purpose": "The positioning statement and the lead tool's heading." },
+      "subtitle": { "displayName": "Sheet Heading", "purpose": "Section headings, each struck by a censor bar." },
+      "entry": { "displayName": "Entry", "purpose": "Archive items and follow-tile handles." },
+      "body": { "displayName": "Body", "purpose": "All running prose in Spectral, held to a 46-58ch measure. Rises to 1.125rem at 48rem." },
+      "label": { "displayName": "Label", "purpose": "Target links, platform names, footer. Mono caps." },
+      "furniture": { "displayName": "Margin Furniture", "purpose": "Desktop-only sheet numbers, section names, classifications. aria-hidden printed matter." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "state-transition", "value": "background-color 200ms", "purpose": "The only non-scroll motion: hover and focus-visible ground inversion on every target." },
+      { "name": "bar-lift", "value": "animation: bar-lift linear both; animation-timeline: view(); animation-range: exit 0% exit 100%;", "purpose": "Hero censor bars translate off (±115%) as the hero exits and never return." },
+      { "name": "unredact", "value": "animation: unredact linear both; animation-timeline: view(); animation-range: entry 5% entry 45%; transform-origin: right center;", "purpose": "Ink cover scales to 0 rightward as a statement line enters, revealing text in reading order. Staggered +7% per child." },
+      { "name": "rule-draw", "value": "animation: rule-draw linear both; animation-timeline: view(); animation-range: entry 8% entry 48%; transform-origin: left;", "purpose": "A rule draws itself left to right as its block enters. The --late variant offsets to entry 16%-56%." },
+      { "name": "stamp-land", "value": "animation: stamp-land cubic-bezier(0.2, 0, 0, 1) both; animation-timeline: view(); animation-range: cover 0% cover 30%;", "purpose": "Closing stamp strikes down from rotate(-6deg) scale(1.08) to rotate(-2deg) scale(1). Transform only, cover range, because an entry range cannot complete at the foot of the document." },
+      { "name": "motion-guard", "value": "@supports (animation-timeline: view()) and @media (prefers-reduced-motion: no-preference)", "purpose": "Both guards wrap every scroll effect. Covers and strikes exist only inside them, so the unguarded default state is always fully visible content." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "40rem" },
+      { "name": "md", "value": "48rem" },
+      { "name": "container", "value": "1728px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Target Link",
+      "kind": "button",
+      "refersTo": "target-link",
+      "description": "The standard bordered outbound target: mono caps plus a drawn arrow. Fills flame on hover and focus.",
+      "html": "<a class=\"ds-target\" href=\"#\"><span>stormcount.gg</span><svg class=\"ds-target-arrow\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4.5 11.5 11.5 4.5\"/><path d=\"M5.5 4.5h6v6\"/></svg></a>",
+      "css": ".ds-target { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px; border: 3px solid var(--color-ink); border-radius: 0; background: transparent; color: var(--color-ink); font-family: var(--font-doc); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; text-decoration: none; transition: background-color 200ms; } .ds-target:hover, .ds-target:focus-visible { background-color: var(--color-flame); } .ds-target:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; } .ds-target-arrow { width: 14px; height: 14px; }"
+    },
+    {
+      "name": "Target Link (Lead)",
+      "kind": "button",
+      "refersTo": "target-link-lead",
+      "description": "The commercially leading item's target: flame-filled at rest, inverting to ink on interaction. Exactly one per page.",
+      "html": "<a class=\"ds-target-lead\" href=\"#\"><span>findthatcard.net</span><svg class=\"ds-target-lead-arrow\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4.5 11.5 11.5 4.5\"/><path d=\"M5.5 4.5h6v6\"/></svg></a>",
+      "css": ".ds-target-lead { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 16px; border: 3px solid var(--color-ink); border-radius: 0; background-color: var(--color-flame); color: var(--color-ink); font-family: var(--font-doc); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; text-decoration: none; transition: background-color 200ms, color 200ms; } .ds-target-lead:hover, .ds-target-lead:focus-visible { background-color: var(--color-ink); color: var(--color-stock); } .ds-target-lead:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; } .ds-target-lead-arrow { width: 14px; height: 14px; }"
+    },
+    {
+      "name": "Follow Tile",
+      "kind": "card",
+      "refersTo": "follow-tile",
+      "description": "The page's primary conversion. Flame-filled by default because hover does not exist on the phones most visitors arrive on.",
+      "html": "<a class=\"ds-follow\" href=\"#\"><span class=\"ds-follow-stack\"><span class=\"ds-follow-label\">TikTok</span><span class=\"ds-follow-handle\">@cardboardcultist</span></span><svg class=\"ds-follow-arrow\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"square\" aria-hidden=\"true\"><path d=\"M4.5 11.5 11.5 4.5\"/><path d=\"M5.5 4.5h6v6\"/></svg></a>",
+      "css": ".ds-follow { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 16px 20px; border: 3px solid var(--color-ink); border-radius: 0; background-color: var(--color-flame); color: var(--color-ink); text-decoration: none; transition: background-color 200ms, color 200ms; } .ds-follow:hover, .ds-follow:focus-visible { background-color: var(--color-ink); color: var(--color-stock); } .ds-follow:focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; } .ds-follow-stack { display: flex; flex-direction: column; gap: 4px; min-width: 0; } .ds-follow-label { font-family: var(--font-doc); font-size: 0.7rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; } .ds-follow-handle { font-family: var(--font-display); font-size: 1.125rem; font-weight: 700; font-stretch: 75%; text-transform: uppercase; letter-spacing: -0.01em; } .ds-follow-arrow { width: 16px; height: 16px; flex: none; }"
+    },
+    {
+      "name": "Stamp (Filled)",
+      "kind": "custom",
+      "refersTo": "stamp-filled",
+      "description": "The motto, stamped on flame at -2deg. Rotation is a stamping gesture reserved for stamps only.",
+      "html": "<p class=\"ds-stamp-filled\">Magic without gatekeeping</p>",
+      "css": ".ds-stamp-filled { display: inline-block; transform: rotate(-2deg); padding: 8px 16px; border: 3px solid var(--color-ink); border-radius: 0; background-color: var(--color-flame); color: var(--color-ink); font-family: var(--font-doc); font-size: 0.75rem; font-weight: 500; line-height: 1; text-transform: uppercase; letter-spacing: 0.16em; margin: 0; }"
+    },
+    {
+      "name": "Stamp (Outline)",
+      "kind": "custom",
+      "refersTo": "stamp-outline",
+      "description": "The closing stamp — the redaction lifted rather than the assertion restated. Lands on a transform-only scroll animation.",
+      "html": "<p class=\"ds-stamp-outline\">Now go watch something</p>",
+      "css": ".ds-stamp-outline { display: inline-block; transform: rotate(-2deg); padding: 8px 16px; border: 3px solid var(--color-ink); border-radius: 0; background: transparent; color: var(--color-ink); font-family: var(--font-doc); font-size: 0.75rem; font-weight: 500; line-height: 1; text-transform: uppercase; letter-spacing: 0.16em; margin: 0; }"
+    },
+    {
+      "name": "Struck Sheet Heading",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The signature device: a censor bar registered on twelfths that inverts the letterforms beneath it via mix-blend-mode difference. The bar is a child of the heading because em resolves against the nearest element's font-size.",
+      "html": "<h2 class=\"ds-sheet-heading\">Two things I built instead of sleeping.<span class=\"ds-censor-bar\" aria-hidden=\"true\"></span></h2>",
+      "css": ".ds-sheet-heading { position: relative; isolation: isolate; max-width: 20ch; margin: 0; background-color: var(--color-stock); color: var(--color-ink); font-family: var(--font-display); font-size: clamp(1.5rem, 3.5vw, 2.75rem); font-weight: 700; font-stretch: 75%; line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; } .ds-censor-bar { position: absolute; left: 16.667%; width: 50%; top: 0.30em; height: 0.16em; background-color: var(--color-stock); mix-blend-mode: difference; z-index: 3; pointer-events: none; }"
+    },
+    {
+      "name": "Margin Furniture",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Desktop-only document apparatus in the tenth column: registration crop mark, sheet number, section name, classification. aria-hidden printed matter, never rendered on phones.",
+      "html": "<div class=\"ds-furniture\" aria-hidden=\"true\"><svg class=\"ds-furniture-mark\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\"><path d=\"M8 0v6M8 10v6M0 8h6M10 8h6\"/><circle cx=\"8\" cy=\"8\" r=\"3.5\"/></svg><dl class=\"ds-furniture-list\"><dd>Sheet 03 / 05</dd><dd class=\"ds-furniture-name\">Tools</dd><dd class=\"ds-furniture-class\">Unrestricted</dd></dl></div>",
+      "css": ".ds-furniture { border-left: 1px solid var(--color-rule); padding-left: 16px; color: var(--color-halftone); } .ds-furniture-mark { width: 16px; height: 16px; } .ds-furniture-list { margin: 12px 0 0; font-family: var(--font-doc); font-size: 0.65rem; font-weight: 500; line-height: 1.625; text-transform: uppercase; letter-spacing: 0.18em; } .ds-furniture-list dd { margin: 0; } .ds-furniture-name { color: var(--color-ink); } .ds-furniture-class { margin-top: 12px; border-top: 1px solid var(--color-rule); padding-top: 12px; }"
+    },
+    {
+      "name": "Drawn Rule",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The closed set of three line weights: 1px hairline for dormant items, 3px ink standard, 6px ink for the single leading item. Each draws itself left to right on entry.",
+      "html": "<span class=\"ds-rule-lead\"></span><span class=\"ds-rule\"></span><span class=\"ds-rule-hairline\"></span>",
+      "css": ".ds-rule-lead, .ds-rule, .ds-rule-hairline { display: block; width: 100%; transform-origin: left; margin-bottom: 20px; } .ds-rule-lead { height: 6px; background-color: var(--color-ink); } .ds-rule { height: 3px; background-color: var(--color-ink); } .ds-rule-hairline { height: 1px; background-color: var(--color-rule); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Embargo Sheet",
+    "overview": "This is a printed document that leaked. It is set on brand cream stock in toner black, ruled with hard 1px and 3px lines, numbered in its own margin (\"Sheet 03 / 05\"), and struck through with censor bars that register exactly on column edges. The redaction is the signature device and the joke: every bar is a mix-blend-mode: difference panel, so it inverts the letterforms underneath instead of erasing them. The page is about a category that hoards information behind embargoes, and it withholds nothing — the strikes are theatre you can read straight through, and the copy is legible with JavaScript off, with scroll-timelines unsupported, and under reduced motion.\n\nDensity is high and deliberately uneven. Nothing is centred, nothing is a matched pair, nothing has a rounded corner, and there is not a single shadow in the build. Depth is carried by a named four-plane z-system and by asymmetric column placement, never by parallax or elevation. Two visual rejections are confirmed in the artifact: the fantasy-art hero with a row of social icons, and the clean white sans page that is its opposite. A third is confirmed by reversion: a symmetric two-card grid for the tools, which flattened a real difference between a utility and a game.\n\nThe type does the shouting. Archivo at weight 900 and width 75% is set to the wordmark's own proportion and fills roughly 91% of the measure at every viewport; Spectral carries all running prose at a comfortable serif measure; JetBrains Mono is confined to document furniture — sheet numbers, classifications, domains, labels. Flame orange appears only as a filled ground, never as ink and never as a line.",
+    "keyCharacteristics": [
+      "Cream stock ground, toner-black ink, zero radius anywhere",
+      "Censor bars that invert rather than cover, registered on twelfths",
+      "Three faces with three fixed jobs: condensed display, serif prose, mono furniture",
+      "Rules at 1px (hairline), 3px (standard), 6px (lead) — no other weights",
+      "Flame orange as fill only, never text, never a rule, never a border",
+      "Static named planes; no parallax, no shadows, no elevation",
+      "Every motion effect double-guarded, with the unanimated state fully readable"
+    ],
+    "rules": [
+      { "name": "The Fill-Only Rule", "body": "Flame is a ground, never a mark. It may fill a box that ink sits on; it may never be text, a rule, a border, an icon stroke, or a hairline. Audit test: if you can delete the flame and the shape still has an outline, it was used correctly.", "section": "colors" },
+      { "name": "The Weight-Not-Hue Rule", "body": "Hierarchy between two peer items is signalled by rule weight and heading scale, never by recolouring one of them. The lead tool carries a 6px ink rule against the follower's 3px. A flame rule was built here and reverted: at 2.6:1 it read lighter than the follower's ink rule and argued against the hierarchy the type had already established.", "section": "colors" },
+      { "name": "The Two-Ink Rule", "body": "Dormancy is drawn in halftone and hairline (1px rule cream), currency in ink and 3px. Presenting an archived thing and a live thing alike either abandons the live one or resurrects the dead one.", "section": "colors" },
+      { "name": "The Three-Voice Rule", "body": "Archivo is always uppercase, always width 75%, always negatively tracked, and never sets a sentence of prose. Spectral never sets a heading. JetBrains Mono never sets prose — it labels, numbers, classifies, and names domains. The three jobs do not swap.", "section": "typography" },
+      { "name": "The Tighter-As-Bigger Rule", "body": "Tracking scales inversely with size: -0.035em at display, -0.03em at headline, -0.02em at title and subtitle, -0.01em at entry, and positive 0.16-0.18em on mono labels. Line-height moves with it: 0.85 at display up to 1.6 at body.", "section": "typography" },
+      { "name": "The Measured-Glyph Rule", "body": "Below line-height 1 the letterforms overflow their line boxes. Any element positioned against display type — strikes, ascender clearance — is offset against the rendered glyph extents, not the layout box, and the compensating pad is expressed in the same unit as the font size so it cannot drift.", "section": "typography" },
+      { "name": "The Twelfths Rule", "body": "Strike geometry is expressed in twelfths (8.333%, 16.667%, 41.667%, 50%) so the redaction registers against the same grid as the type. Arbitrary percentages break the registration that is the whole conceit.", "section": "layout" },
+      { "name": "The Margin-Needs-A-Margin Rule", "body": "Document furniture is desktop-only by design. There is no margin on a phone, and in flow it reads as a caption under the heading — in the close it physically interrupted the path between the pitch and the conversion. It is not \"hidden for space\"; it is absent because its container does not exist.", "section": "layout" },
+      { "name": "The No-Shadow Rule", "body": "Surfaces are flat at rest and flat in every state. A raised or offset shadow is foreign to this world — separation comes from a 3px border, a rule, or a plane assignment.", "section": "elevation" },
+      { "name": "The Applied-Last Rule", "body": "Nothing renders above --plane-strike. If a new element needs to sit over a censor bar, the element is wrong, not the plane.", "section": "elevation" },
+      { "name": "The Default-Affordance Rule", "body": "A target's clickability is visible before interaction. Most traffic arrives in iOS in-app browsers where hover never fires; an affordance that only exists in a hover state ships as no affordance at all.", "section": "components" },
+      { "name": "The Em-Resolves-Locally Rule", "body": "A strike must be a child of the element whose font-size it is measured against. em resolves against the nearest element's own font-size — a sibling overlay sized these against body text and rendered them roughly 13x too small.", "section": "components" },
+      { "name": "The Strike-Ends-In-The-Glyph-Run Rule", "body": "A bar must terminate inside the letterforms it crosses. Overhang past the last glyph is a stray rectangle, not a redaction. Shipped measurements: tools bar ends at 66.7% against glyphs reaching 79.9%; archive 41.7% against 53.3%; close 50% against 55.8%. This defect was introduced twice; measure against rendered glyphs before changing a strike.", "section": "components" },
+      { "name": "The Double-Guard Rule", "body": "Every scroll effect lives inside both @supports (animation-timeline: view()) and @media (prefers-reduced-motion: no-preference). This is a safety rule, not a stylistic one: a covering bar exists only inside the guards, so where the feature is unsupported or motion is reduced, no cover is ever drawn and the text is simply visible. A blindfold must never be able to become permanent.", "section": "components" },
+      { "name": "The Transform-Only-At-The-Foot Rule", "body": "Never animate opacity from 0 on an element near the end of the document. The closing stamp did, on an entry range that cannot complete with only a footer beneath it, and fill: both pinned it at opacity: 0 — the last element on the page shipped permanently invisible. It animates transform only, on a cover 0%-30% range, so an incomplete range degrades to a slightly different angle rather than to nothing.", "section": "components" }
+    ],
+    "dos": [
+      "Do treat flame as a ground only — ink on flame is 5.9:1 and passes; flame on stock is 2.6:1 and fails.",
+      "Do register every censor bar on twelfths, and terminate it inside the glyph run it crosses.",
+      "Do render a strike as a child of the element whose font-size sizes it, inside an isolate group with an explicit stock background.",
+      "Do wrap every scroll-linked effect in both the @supports and the prefers-reduced-motion guard, and make the unguarded state the fully-visible one.",
+      "Do mark hierarchy with rule weight (1px / 3px / 6px) and heading scale, never with hue.",
+      "Do set display type uppercase at width 75% with negative tracking, and measure positions against rendered glyph extents when line-height drops below 1.",
+      "Do give every interactive target a visible affordance at rest and a 44px minimum height; mirror every :hover treatment on :focus-visible.",
+      "Do draw icons as inline SVG strokes at the system's line weights."
+    ],
+    "donts": [
+      "Don't use flame for text, a rule, a border, an icon stroke, or a hairline.",
+      "Don't add a border radius. Zero is the value, everywhere.",
+      "Don't add a shadow of any kind — this system has none, and separation comes from borders, rules, and named planes.",
+      "Don't animate a text plane's position on scroll: fractional translateY costs subpixel antialiasing and renders drifting copy visibly softer than its neighbours.",
+      "Don't animate opacity from 0 on any element near the foot of the document.",
+      "Don't introduce a line weight outside 1px / 3px / 6px, or a rotation outside the -2deg stamp gesture.",
+      "Don't place margin furniture in the content flow on phones — it reads as a stray caption and, on the close, interrupts the conversion path.",
+      "Don't present two peer items as a matched symmetric pair when one genuinely leads; and don't present a dormant item at the same weight as a live one.",
+      "Don't use a unicode glyph, an icon font, or a social logo mark where a drawn SVG stroke belongs."
+    ]
+  }
+}

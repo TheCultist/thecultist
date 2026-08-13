@@ -33,8 +33,7 @@ Cool document stock, deliberately **not** warm parchment — Impeccable names cr
 |---|---|---|
 | `--ink` | `#0D0E0C` | Body text, censor bars, rules. Sampled from the mark's linework |
 | `--stock` | `#F1E4D8` | Page ground. The mark's own cream, median of a 3-unit spread |
-| `--flame` | `#EF631E` | The candle flame. **Fill only — never text** |
-| `--wax` | `#ECDFCF` | Secondary surface, sampled from the wax drip |
+| `--flame` | `#EF631E` | The candle flame. **Fill only — never text, never a rule** |
 | `--halftone` | `#6E655C` | Secondary text, captions, metadata |
 | `--rule` | `#D8C9B9` | Hairlines, registration marks, borders |
 
