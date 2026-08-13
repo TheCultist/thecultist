@@ -170,6 +170,14 @@
       position: relative;
     }
 
+    /*
+     * `cover`, not `entry`. An entry range is only as long as the element
+     * itself, so a single 62px line un-redacted across 62px of scroll — the
+     * whole reveal finished while the line was still in the bottom 14% of the
+     * screen, effectively off-view. A cover range spans the element's full
+     * travel across the viewport, so these values reveal each line as it
+     * crosses roughly 85% to 45% of viewport height, where it is being read.
+     */
     .unredact::after {
       content: "";
       position: absolute;
@@ -178,15 +186,15 @@
       transform-origin: right center;
       animation: unredact linear both;
       animation-timeline: view();
-      animation-range: entry 5% entry 45%;
+      animation-range: cover 14% cover 46%;
     }
 
     .unredact:nth-child(2)::after {
-      animation-range: entry 12% entry 52%;
+      animation-range: cover 17% cover 49%;
     }
 
     .unredact:nth-child(3)::after {
-      animation-range: entry 19% entry 59%;
+      animation-range: cover 20% cover 52%;
     }
   }
 }
@@ -212,14 +220,15 @@
  */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
+    /* Same correction as .unredact — a 3px rule has a 3px entry range. */
     .rule-draw {
       animation: rule-draw linear both;
       animation-timeline: view();
-      animation-range: entry 8% entry 48%;
+      animation-range: cover 15% cover 48%;
     }
 
     .rule-draw--late {
-      animation-range: entry 16% entry 56%;
+      animation-range: cover 22% cover 55%;
     }
   }
 }
