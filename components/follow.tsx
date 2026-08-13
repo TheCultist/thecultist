@@ -33,12 +33,12 @@ export function Follow() {
               data-section="close"
               className="group flex min-h-11 items-center justify-between gap-3 border-[3px] border-ink px-5 py-4 transition-colors duration-200 hover:bg-flame focus-visible:bg-flame md:px-6 md:py-5"
             >
-              <span className="flex flex-col gap-1">
+              <span className="flex min-w-0 flex-col gap-1">
                 <span className="font-doc text-[0.7rem] uppercase tracking-[0.16em]">
                   {social.label}
                 </span>
                 <span
-                  className="font-display text-lg font-bold uppercase tracking-[-0.01em] [font-stretch:75%] md:text-xl"
+                  className="truncate font-display text-lg font-bold uppercase tracking-[-0.01em] [font-stretch:75%] md:text-xl"
                   translate="no"
                 >
                   {social.handle}

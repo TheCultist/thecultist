@@ -18,6 +18,12 @@ const archivo = Archivo({
   display: "swap",
 });
 
+/*
+ * All three faces stay preloaded. Dropping preload on the body and mono faces
+ * was tried and measured worse — LCP 2.7s to 3.0s, and a font-swap reflow
+ * introduced CLS where there had been none. Font discovery moving to CSS parse
+ * time costs more than the extra preload bytes save.
+ */
 const spectral = Spectral({
   variable: "--font-spectral",
   subsets: ["latin"],

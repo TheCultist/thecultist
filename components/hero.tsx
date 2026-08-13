@@ -60,6 +60,7 @@ export function Hero() {
         width={1024}
         height={1024}
         sizes="(min-width: 768px) 96px, 64px"
+        priority
         className="h-16 w-16 flex-none md:h-24 md:w-24"
       />
 
