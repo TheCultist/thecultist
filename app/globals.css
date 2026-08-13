@@ -148,13 +148,34 @@
  */
 @supports (animation-timeline: scroll()) {
   @media (prefers-reduced-motion: no-preference) {
+    /* Each hero bar carries its own animation-range inline, so they leave in
+       sequence rather than all at once. */
     .censor-bar--lift {
       animation: bar-lift linear both;
       animation-timeline: scroll(root block);
-      animation-range: 0 40svh;
     }
 
     .censor-bar--lift.censor-bar--reverse {
+      animation-name: bar-lift-reverse;
+    }
+  }
+}
+
+/*
+ * Section-heading strikes lift too, but on their own view timeline rather than
+ * the document's: each clears as its heading crosses the middle of the screen,
+ * so the redaction lifting is the page's consistent behaviour rather than a
+ * hero-only trick.
+ */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .censor-bar--pass {
+      animation: bar-lift linear both;
+      animation-timeline: view();
+      animation-range: cover 40% cover 64%;
+    }
+
+    .censor-bar--pass.censor-bar--reverse {
       animation-name: bar-lift-reverse;
     }
   }
@@ -341,14 +362,20 @@
   }
 }
 
+/*
+ * Viewport-relative, not percentage-of-self. At 115% of its own width a bar
+ * that does not start at the page edge never fully cleared — the third hero
+ * bar begins at 8.3% of the measure and was still 28px on screen at the end of
+ * its travel. 110vw clears from any starting position.
+ */
 @keyframes bar-lift {
   to {
-    transform: translateX(-115%);
+    transform: translateX(-110vw);
   }
 }
 
 @keyframes bar-lift-reverse {
   to {
-    transform: translateX(115%);
+    transform: translateX(110vw);
   }
 }

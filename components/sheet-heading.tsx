@@ -21,6 +21,8 @@ type SheetHeadingProps = {
   label: string;
   /** Strike geometry in twelfths, matching the hero's registration. */
   strike: { left: string; width: string; top: string };
+  /** Slide the strike right instead of left as it clears. */
+  reverse?: boolean;
   className?: string;
 };
 
@@ -29,6 +31,7 @@ export function SheetHeading({
   sheet,
   label,
   strike,
+  reverse = false,
   className = "",
 }: SheetHeadingProps) {
   return (
@@ -39,7 +42,7 @@ export function SheetHeading({
         {children}
         <span
           aria-hidden="true"
-          className="censor-bar plane-strike absolute"
+          className={`censor-bar censor-bar--pass plane-strike absolute ${reverse ? "censor-bar--reverse" : ""}`}
           style={{ left: strike.left, width: strike.width, top: strike.top, height: "0.16em" }}
         />
       </h2>

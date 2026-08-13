@@ -88,7 +88,7 @@ function Tool({
 
 export function Tools() {
   return (
-    <section className="mx-auto w-full max-w-[1728px] px-5 pb-24 sm:px-8 md:px-12 md:pb-40">
+    <section className="mx-auto w-full max-w-[1728px] overflow-x-clip px-5 pb-24 sm:px-8 md:px-12 md:pb-40">
       <SheetHeading
         sheet="03"
         label="Tools"

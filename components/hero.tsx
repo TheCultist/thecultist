@@ -21,11 +21,11 @@ import { socials } from "@/lib/links";
  * from assistive tech. Purely presentational.
  */
 const BARS = [
-  { left: "0%", width: "41.667%", top: "0.24em", reverse: false },
+  { left: "0%", width: "41.667%", top: "0.24em", reverse: false, range: "0 30svh" },
   // Ends on the glyph run. Running to 100% left a stub of bare bar past the
   // word with no letterform to invert — a stray rectangle, not a strike.
-  { left: "50%", width: "41.667%", top: "0.57em", reverse: true },
-  { left: "8.333%", width: "41.667%", top: "1.20em", reverse: false },
+  { left: "50%", width: "41.667%", top: "0.57em", reverse: true, range: "7svh 40svh" },
+  { left: "8.333%", width: "41.667%", top: "1.20em", reverse: false, range: "14svh 50svh" },
 ] as const;
 
 function CensorBars() {
@@ -40,6 +40,8 @@ function CensorBars() {
             width: bar.width,
             top: bar.top,
             height: "0.13em",
+            // Staggered so the three strikes leave in sequence.
+            animationRange: bar.range,
           }}
         />
       ))}

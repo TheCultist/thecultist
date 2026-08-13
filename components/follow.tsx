@@ -12,7 +12,7 @@ import { socials } from "@/lib/links";
  */
 export function Follow() {
   return (
-    <section className="mx-auto w-full max-w-[1728px] px-5 pb-20 sm:px-8 md:px-12 md:pb-28">
+    <section className="mx-auto w-full max-w-[1728px] overflow-x-clip px-5 pb-20 sm:px-8 md:px-12 md:pb-28">
       <span aria-hidden="true" className="rule-draw block h-[3px] w-full origin-left bg-ink" />
 
       <div className="mt-10 grid grid-cols-12 items-start gap-x-6 md:mt-14">
@@ -21,7 +21,7 @@ export function Follow() {
             That’s the whole site.
             <span
               aria-hidden="true"
-              className="censor-bar plane-strike absolute"
+              className="censor-bar censor-bar--pass plane-strike absolute"
               // Ends at 50%; the first line's glyphs end at 55.8%. Measured, not
               // guessed — 58.333% left an 11% stub past "THAT'S THE".
               style={{ left: "8.333%", width: "41.667%", top: "0.30em", height: "0.15em" }}
