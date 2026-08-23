@@ -320,7 +320,7 @@
  * The range is in svh so it tracks the hero's own height (66svh on phones).
  *
  * Default state is hidden: without scroll-timeline support the dock simply
- * never appears. That is the right degradation for an overlay — all three
+ * never appears. That is the right degradation for an overlay — all four
  * accounts are already linked in the hero and again in the close, so nothing
  * is lost, whereas a permanently pinned bar would cover content.
  */

@@ -13,6 +13,9 @@ import { chromium } from "playwright";
 const DENSE_FRACTION = 300 / 790;
 
 const sizes = [
+  // Past the 1728px measure the band stops widening while vw padding does not,
+  // so the widest viewport is the one that catches runaway clearance.
+  [2560, 1440],
   [1920, 1080],
   [1920, 898],
   [1440, 900],

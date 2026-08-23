@@ -17,6 +17,9 @@ mkdirSync(outDir, { recursive: true });
 const targets = [
   { name: "wide", width: 1920, height: 1080, dsf: 1 },
   { name: "desktop", width: 1440, height: 900, dsf: 1 },
+  // The hero's title block sets the motto and the business target on one line
+  // and lets them wrap; this is the width where that wrap happens.
+  { name: "tablet", width: 768, height: 1024, dsf: 1 },
   { name: "mobile", width: 390, height: 844, dsf: 2 },
 ];
 

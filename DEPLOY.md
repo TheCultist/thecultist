@@ -67,6 +67,6 @@ Without that event firing, the success metric â€” **30% social click-through** â
 ## 7. Post-launch checklist
 
 - [ ] Click through **all ten outbound links** on the live site. Only `findthatcard.net`, `stormcount.gg` and the Instagram profile were ever machine-verified; TikTok, both YouTube channels and Screenhype sit behind login walls, GDPR interstitials or bot protection.
-- [ ] Confirm the three social handles are current: `@cardboard.cultist` (Instagram, TikTok) and `@card_cultist` (YouTube).
+- [ ] Confirm the four social handles are current: `@cardboard.cultist` (Instagram, TikTok), `@card_cultist` (YouTube) and `@TheCultist` (Moxfield).
 - [ ] Supply author URLs for **TechRaptor** and **mmo.it** if those should be links rather than plain text.
 - [ ] Run Lighthouse against the production URL. Local scores were desktop 100/100/96/100 and mobile 96/100/96/100; both best-practices deductions were the local-only `_vercel/insights` 404s and should clear in production.

@@ -17,7 +17,7 @@ export function FollowDock() {
       aria-label="Follow"
       className="follow-dock fixed inset-x-0 bottom-0 z-50 border-t-[3px] border-ink bg-stock pb-[env(safe-area-inset-bottom)] md:hidden"
     >
-      <ul className="grid grid-cols-3">
+      <ul className="grid grid-cols-4">
         {socials.map((social, i) => (
           <li key={social.label} className={i > 0 ? "border-l border-rule" : ""}>
             <a

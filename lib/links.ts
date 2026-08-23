@@ -28,6 +28,11 @@ export const socials: readonly Social[] = [
     handle: "@card_cultist",
     href: "https://www.youtube.com/@card_cultist",
   },
+  {
+    label: "Moxfield",
+    handle: "@TheCultist",
+    href: "https://moxfield.com/users/TheCultist",
+  },
 ] as const;
 
 /**

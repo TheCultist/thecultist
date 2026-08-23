@@ -93,7 +93,7 @@ const DIRECTION_CONTRACT = `<!--
 THESIS: Magic hoards information behind embargoes and insider knowledge. This page is the leak that redacts nothing. It refuses the fantasy-art hero with a social icon row, and refuses the clean white sans page that is its opposite.
 OWN-WORLD: Brand cream stock, toner black, flame orange as fill only. Archivo condensed black display matching the wordmark, Spectral body, JetBrains Mono document furniture. Zero radius, 1px or 3px rules, censor bars on exact column registration.
 STORY: A stranger arriving from a short video learns this is Magic explained without gatekeeping, and follows.
-FIRST VIEWPORT: "Cardboard Cultist" set full-width in condensed black caps. Three censor bars struck at column edges, inverting the type beneath rather than erasing it. Motto stamped on flame orange below. Three handles as the only unstruck text.
+FIRST VIEWPORT: "Cardboard Cultist" set full-width in condensed black caps. Three censor bars struck at column edges, inverting the type beneath rather than erasing it. Motto stamped on flame orange below. Four handles as the only unstruck text.
 FORM: The Embargo Sheet, candidate 6 of 7, seed e2f79a43.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
 -->`;

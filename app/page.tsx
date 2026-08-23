@@ -20,10 +20,9 @@ export default function Home() {
       </main>
 
       {/*
-       * The contact address lives in the footer rather than beside the social
-       * CTAs: it serves a different visitor — someone with business to raise,
-       * not someone deciding whether to follow — and the close is reserved for
-       * the primary conversion.
+       * Also repeated as a "Collabs & Business" CTA in the hero, so a business
+       * visitor is not required to scroll the whole page to find it. Kept here
+       * too as the plain, unambiguous form for anyone who does reach the foot.
        */}
       {/* Bottom padding clears the mobile follow dock, which is fixed. */}
       <footer className="mx-auto w-full max-w-[1728px] border-t border-rule px-5 pb-[calc(6rem+env(safe-area-inset-bottom))] pt-6 font-doc text-[0.7rem] uppercase tracking-[0.16em] text-halftone sm:px-8 md:px-12 md:pb-10">

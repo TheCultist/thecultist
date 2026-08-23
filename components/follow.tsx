@@ -56,7 +56,7 @@ export function Follow() {
 
       <ContactStrip />
 
-      <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-3 md:mt-16 md:gap-4">
+      <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 md:mt-16 md:gap-4 lg:grid-cols-4">
         {socials.map((social) => (
           <li key={social.label}>
             <a
