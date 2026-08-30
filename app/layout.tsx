@@ -5,7 +5,14 @@ import { Archivo, Spectral, JetBrains_Mono } from "next/font/google";
 
 import { MotionFallback } from "@/components/motion-fallback";
 import { OutboundTracking } from "@/components/outbound-tracking";
-import { archive, contact, socials } from "@/lib/links";
+import { archive, contact, socials, tools } from "@/lib/links";
+import {
+  CONTENT_UPDATED,
+  PERSON_ID,
+  PROFILE_ID,
+  SITE_URL,
+  WEBSITE_ID,
+} from "@/lib/site";
 
 import "./globals.css";
 
@@ -54,13 +61,34 @@ const DESCRIPTION =
   "A senior developer who plays Magic: The Gathering and makes content on stolen time. Memes, skits, rules, trivia — and two tools built instead of sleeping.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://thecultist.it"),
+  metadataBase: new URL(SITE_URL),
   title: "Cardboard Cultist — Magic without gatekeeping",
   description: DESCRIPTION,
   applicationName: "Cardboard Cultist",
   authors: [{ name: "Luigi Savinelli" }],
-  // Apex and www both resolve; this tells search engines which one counts.
+  /*
+   * Both hostnames answer, so this names the one that counts — and it only
+   * works if Vercel serves that one rather than redirecting to it. A canonical
+   * pointing at a redirect is discarded, and the crawler picks for itself.
+   */
   alternates: { canonical: "/" },
+  /*
+   * Defaults everywhere except image previews. `max-image-preview: large` is
+   * the one that earns its place on a page built around a visual brand: it is
+   * what makes the difference between a thumbnail and a full-width image in
+   * Google Images and Discover.
+   */
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   openGraph: {
     type: "website",
     url: "/",
@@ -101,32 +129,85 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 /**
  * Structured data, stating only facts that are already on the page.
  *
- * `sameAs` is the part that earns its place: it tells search engines that this
- * domain and these social profiles are one identity, which is the whole job of
- * a creator hub. No ratings, no counts, no invented claims.
+ * A `@graph` rather than a single node, because the useful claims here are
+ * about *relationships* and a lone node cannot express them. Two do the work:
+ *
+ * `sameAs` says this domain and these profiles are one identity — the whole
+ * job of a creator hub. `author` on the two tool nodes says the same person
+ * made findthatcard.net and stormcount.gg, which nothing else on the web
+ * states. Without it three domains one person owns look unrelated, and none of
+ * the recognition earned by any of them reaches the others.
+ *
+ * `sameAs` would be the wrong field for the tools: it asserts that two URLs
+ * are the same entity, and a person is not their software.
+ *
+ * No ratings, no counts, no invented claims. `llms.txt` says the same thing in
+ * prose, and the two must not disagree.
  */
 const STRUCTURED_DATA = {
   "@context": "https://schema.org",
-  "@type": "ProfilePage",
-  mainEntity: {
-    "@type": "Person",
-    name: "Luigi Savinelli",
-    alternateName: "Cardboard Cultist",
-    url: "https://thecultist.it",
-    email: contact.href,
-    description: DESCRIPTION,
-    sameAs: [
-      ...socials.map((s) => s.href),
-      archive.screenhype.href,
-      archive.informTheGamers.href,
-    ],
-  },
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": PERSON_ID,
+      name: "Luigi Savinelli",
+      alternateName: "Cardboard Cultist",
+      url: SITE_URL,
+      email: contact.href,
+      image: `${SITE_URL}/mark.png`,
+      description: DESCRIPTION,
+      /*
+       * Only subjects the page itself claims. It is a statement of what this
+       * person writes and builds about, not a keyword list — anything here
+       * that the page does not back up is a claim waiting to be contradicted.
+       */
+      knowsAbout: [
+        "Magic: The Gathering",
+        "Commander",
+        "Software development",
+        "Games writing",
+      ],
+      sameAs: [
+        ...socials.map((s) => s.href),
+        archive.screenhype.href,
+        archive.informTheGamers.href,
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": WEBSITE_ID,
+      url: SITE_URL,
+      name: "Cardboard Cultist",
+      description: DESCRIPTION,
+      inLanguage: "en-GB",
+      publisher: { "@id": PERSON_ID },
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": PROFILE_ID,
+      url: SITE_URL,
+      isPartOf: { "@id": WEBSITE_ID },
+      mainEntity: { "@id": PERSON_ID },
+      dateModified: CONTENT_UPDATED,
+    },
+    ...Object.values(tools).map((tool) => ({
+      "@type": "WebApplication",
+      "@id": `${tool.href}/#app`,
+      name: tool.label,
+      url: tool.href,
+      description: tool.description,
+      applicationCategory: tool.category,
+      author: { "@id": PERSON_ID },
+    })),
+  ],
 } as const;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      // Matches og:locale and the graph's inLanguage; all three said "en" or
+      // "en_GB" independently of each other before.
+      lang="en-GB"
       className={`${archivo.variable} ${spectral.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="min-h-full antialiased">

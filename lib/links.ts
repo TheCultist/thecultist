@@ -45,14 +45,28 @@ export const contact = {
   href: "mailto:luigi.savinelli@thecultist.it",
 } as const;
 
+/**
+ * `description` and `category` exist for the structured data, not the page.
+ *
+ * The copy rendered in the tools section is written in the site's voice; these
+ * are the plain form, matching what public/llms.txt already says, for the
+ * schema.org nodes that attribute both products to their author. Keeping them
+ * beside the hrefs means the two descriptions of one tool cannot drift apart.
+ */
 export const tools = {
   findThatCard: {
     label: "findthatcard.net",
     href: "https://findthatcard.net",
+    description:
+      "Search Magic: The Gathering cards by describing them in natural language rather than by exact name.",
+    category: "ReferenceApplication",
   },
   stormCount: {
     label: "stormcount.gg",
     href: "https://stormcount.gg",
+    description:
+      "A daily guessing game on whether a hidden card's mana value beats a revealed one, with a leaderboard.",
+    category: "GameApplication",
   },
 } as const;
 

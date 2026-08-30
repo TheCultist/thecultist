@@ -23,7 +23,9 @@ Remote is `https://github.com/TheCultist/thecultist.git`. The first push needs a
 
 Project → **Settings → Domains → Add Domain** → `thecultist.it`.
 
-Vercel will prompt to also add `www.thecultist.it`. Accept: it recommends serving on `www` with the apex redirecting.
+Vercel will prompt to also add `www.thecultist.it`. Accept it — but **set the apex as the primary domain and redirect `www` to it**, which is the opposite of what Vercel suggests by default.
+
+This matters more than it looks. The apex is what the code declares everywhere — the canonical tag, `og:url`, the sitemap, `robots.txt` and the structured data all resolve from `SITE_URL` in `lib/site.ts`. Serving on `www` instead leaves every one of those pointing at a URL that 308-redirects, which makes the canonical tag unusable (a crawler discards a canonical that redirects and picks its own) and leaves the sitemap submitting zero indexable URLs. If you would rather serve `www`, that is fine — but then change `SITE_URL`, because the two have to agree.
 
 Vercel then shows the exact records to create. **Read the values off that screen** — do not copy them from here:
 
@@ -50,7 +52,8 @@ Do **not** switch to Vercel nameservers unless you want Vercel to own the whole 
 
 ## 5. Verify
 
-- `https://thecultist.it` and `https://www.thecultist.it` both serve, one redirecting to the other.
+- `https://thecultist.it` serves a **200**, and `https://www.thecultist.it` **308-redirects to it**. Check the direction, not just that both respond — reversed, the whole site's canonical signalling breaks silently.
+- `https://thecultist.it/sitemap.xml` returns 200 and its single `<loc>` is `https://thecultist.it` — not a redirect.
 - HTTPS certificate issued automatically by Vercel — no action needed, but it only issues after DNS resolves.
 - Paste the URL into Discord, Slack or a Telegram chat and confirm the OG card renders: cream ground, the candle badge, 1200×630.
 - Open in the **real TikTok and Instagram in-app browsers**, not desktop device emulation. They behave differently, and they are where most traffic lands.

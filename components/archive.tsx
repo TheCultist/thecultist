@@ -73,7 +73,10 @@ function Entry({ href, domain, heading, body, note, dormant = false }: EntryProp
 
 export function Archive() {
   return (
-    <section className="mx-auto w-full max-w-[1728px] overflow-x-clip px-5 pb-24 sm:px-8 md:px-12 md:pb-40">
+    <section
+      id="archive"
+      className="mx-auto w-full max-w-[1728px] overflow-x-clip px-5 pb-24 sm:px-8 md:px-12 md:pb-40"
+    >
       <SheetHeading
         sheet="04"
         label="Archive"

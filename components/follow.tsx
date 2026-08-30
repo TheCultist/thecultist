@@ -12,7 +12,10 @@ import { socials } from "@/lib/links";
  */
 export function Follow() {
   return (
-    <section className="mx-auto w-full max-w-[1728px] overflow-x-clip px-5 pb-20 sm:px-8 md:px-12 md:pb-28">
+    <section
+      id="follow"
+      className="mx-auto w-full max-w-[1728px] overflow-x-clip px-5 pb-20 sm:px-8 md:px-12 md:pb-28"
+    >
       <span aria-hidden="true" className="rule-draw block h-[3px] w-full origin-left bg-ink" />
 
       <div className="mt-10 grid grid-cols-12 items-start gap-x-6 md:mt-14">

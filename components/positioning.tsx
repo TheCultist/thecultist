@@ -22,7 +22,10 @@ const STATEMENT = [
 /* Tighter top padding on phones so this beat breaks the hero's fold. */
 export function Positioning() {
   return (
-    <section className="mx-auto w-full max-w-[1728px] px-5 pb-24 pt-14 sm:px-8 md:px-12 md:py-40">
+    <section
+      id="about"
+      className="mx-auto w-full max-w-[1728px] px-5 pb-24 pt-14 sm:px-8 md:px-12 md:py-40"
+    >
       {/*
        * The statement takes the full measure, with the margin furniture moved
        * to the row beneath rather than beside it. Sharing the row cost the
